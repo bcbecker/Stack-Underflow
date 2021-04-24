@@ -1,0 +1,32 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+bcrypt = "*"
+blinker = "*"
+certifi = "*"
+cffi = "*"
+click = "*"
+email-validator = "*"
+itsdangerous = "*"
+pycparser = "*"
+six = "*"
+Flask = "*"
+Flask-Bcrypt = "*"
+Flask-Login = "*"
+Flask-Mail = "*"
+Flask-SQLAlchemy = "*"
+Flask-WTF = "*"
+Jinja2 = "*"
+MarkupSafe = "*"
+Pillow = "*"
+SQLAlchemy = "*"
+Werkzeug = "*"
+WTForms = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
