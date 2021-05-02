@@ -24,7 +24,6 @@ def new_post():
 
 @posts.route("/post/<int:post_id>")
 def post(post_id):
-    form = ReplyForm()
     post = Post.query.get_or_404(post_id)
     return render_template('post.html', title=post.title, post=post)
 
@@ -35,13 +34,13 @@ def new_reply(post_id):
     post = Post.query.get_or_404(post_id)
     form = ReplyForm()
     if form.validate_on_submit():
-        reply = Reply(content=form.content.data, author=current_user)
+        reply = Reply(content=form.content.data, reply_author=current_user)
         db.session.add(reply)
         db.session.commit()
         flash('Your reply has been posted!', 'success')
         return redirect(url_for('posts.post', post_id=post.id))
     return render_template('post.html', title='Reply Post',
-                           form=form, legend='Reply Post')
+                           form=form, post=post, legend='Reply Post')
 
 
 @posts.route("/post/<int:post_id>/update", methods=['GET', 'POST'])
