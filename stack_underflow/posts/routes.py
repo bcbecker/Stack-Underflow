@@ -22,19 +22,20 @@ def new_post():
                            form=form, legend='New Post')
 
 
-@posts.route("/post/<int:post_id>")
+@posts.route("/post/<int:post_id>", methods=['GET', 'POST'])
 def post(post_id):
+    form = ReplyForm()
     post = Post.query.get_or_404(post_id)
-    return render_template('post.html', title=post.title, post=post)
+    return render_template('post.html', title=post.title, form=form, post=post)
 
 # Add reply route
 @posts.route("/post/<int:post_id>/reply", methods=['GET', 'POST'])
-# @login_required
+@login_required
 def new_reply(post_id):
     post = Post.query.get_or_404(post_id)
     form = ReplyForm()
     if form.validate_on_submit():
-        reply = Reply(content=form.content.data, reply_author=current_user)
+        reply = Reply(content=form.content.data, reply_author=current_user, post_id=post.id)
         db.session.add(reply)
         db.session.commit()
         flash('Your reply has been posted!', 'success')

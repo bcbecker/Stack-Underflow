@@ -15,14 +15,65 @@
       </div>
       <h2 class="article-title">{{ post.title }}</h2>
       <p class="article-content">{{ post.content }}</p>
-      <hr>
       <div class="text-right">
-        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.new_reply', post_id=post.id) }}">Reply</a>
+        <button type="button" class="btn btn-secondary btn-sm m-1" data-toggle="modal" data-target="#replyModal">Reply</button>
       </div> 
     </div>
   </article>
+
+  
+  {% for reply in post.replies %}
+  <article class="media content-section">
+    <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + post.author.image_file) }}">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2 user-font user-font" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ reply.reply_author.username }}</a>
+        <small class="text-muted">{{ reply.date_posted.strftime('%m-%d-%Y') }}</small>
+      </div>
+      <p class="article-content">
+        {{ reply.content }}
+      </p>
     </div>
   </article>
+  {% endfor %}
+  <!-- Modal Reply-->
+  <div class="modal fade" id="replyModal" tabindex="-1" role="dialog" aria-labelledby="replyModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="replyModalLabel">Reply to Post</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form method="POST" action="{{ url_for('posts.new_reply', post_id=post.id) }}">
+          {{ form.hidden_tag() }}
+          <fieldset class="form-group">
+            <legend class="border-bottom mb-4">{{ legend }}</legend>
+            <div class="form-group ml-4">
+              {{ form.content.label(class="form-control-label") }}
+              {% if form.content.errors %}
+                {{ form.content(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.content.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.content(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+          </fieldset>
+          <div class="form-group ml-4">
+            {{ form.submit(class="btn btn-secondary") }}
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Modal Delete-->
   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
