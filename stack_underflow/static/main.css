@@ -29,7 +29,15 @@ h1, h2, h3, h4, h5, h6 {
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+}
+
+.reply-section {
+  background:rgb(212, 212, 212);
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 10px;
 }
 
 .article-title {
@@ -37,7 +45,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a.article-title:hover {
-  color: #4a8fca;
+  color: #caac4a;
   text-decoration: none;
 }
 

@@ -28,7 +28,7 @@ def post(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('post.html', title=post.title, form=form, post=post)
 
-# Add reply route
+
 @posts.route("/post/<int:post_id>/reply", methods=['GET', 'POST'])
 @login_required
 def new_reply(post_id):

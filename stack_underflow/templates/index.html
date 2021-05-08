@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-  <h2>
+  <h2 class="mt-2">
     Top Questions
   </h2>
     {% for post in posts.items %}
@@ -17,13 +17,13 @@
             </p>
             <div class="text-right">
               <small class="text-muted">
-                {{ post.replies.count() }} replies
+              {{ post.replies.count }} replies
               </small>
             </div>
           </div>
         </article>
     {% endfor %}
-    <!--Center this?-->
+    <!--Center this? Footer?-->
     {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
       {% if page_num %}
         {% if posts.page == page_num %}
