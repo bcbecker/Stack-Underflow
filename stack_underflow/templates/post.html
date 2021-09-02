@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-  <article class="media content-section">
+  <article class="media content-section mt-3">
     <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + post.author.image_file) }}">
     <div class="media-body">
       <div class="article-metadata">
@@ -48,7 +48,7 @@
         </div>
         <form method="POST" action="{{ url_for('posts.new_reply', post_id=post.id) }}">
           {{ form.hidden_tag() }}
-          <fieldset class="form-group">
+          <fieldset class="form-group mr-4">
             <legend class="border-bottom mb-4">{{ legend }}</legend>
             <div class="form-group ml-4">
               {{ form.content.label(class="form-control-label") }}
@@ -64,13 +64,10 @@
               {% endif %}
             </div>
           </fieldset>
-          <div class="form-group ml-4">
+          <div class="form-group float-right mr-4">
             {{ form.submit(class="btn btn-secondary") }}
           </div>
         </form>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
       </div>
     </div>
   </div>
@@ -84,8 +81,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="modal-footer float-right mr-4">
           <form action="{{ url_for('posts.delete_post', post_id=post.id) }}" method="POST">
             <input class="btn btn-danger" type="submit" value="Delete">
           </form>
