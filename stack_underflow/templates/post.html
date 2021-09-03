@@ -15,9 +15,11 @@
       </div>
       <h2 class="article-title">{{ post.title }}</h2>
       <p class="article-content">{{ post.content }}</p>
+      {% if current_user.is_authenticated %}
       <div class="text-right">
         <button type="button" class="btn btn-secondary btn-sm m-1" data-toggle="modal" data-target="#replyModal">Reply</button>
       </div> 
+      {% endif %}
     </div>
   </article>
 

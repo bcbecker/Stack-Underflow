@@ -3,26 +3,30 @@
   <h2 class="mt-2 site-font">
     Recent Posts
   </h2>
-    {% for post in posts.items %}
-      <article class="media content-section">
-        <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + post.author.image_file) }}">
-        <div class="media-body">
-          <div class="article-metadata">
-            <a class="mr-2 user-font user-font" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
-            <small class="text-muted">{{ post.date_posted.strftime('%m-%d-%Y') }}</small>
+    {% if posts %}
+      {% for post in posts.items %}
+        <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + post.author.image_file) }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2 user-font user-font" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+              <small class="text-muted">{{ post.date_posted.strftime('%m-%d-%Y') }}</small>
+            </div>
+            <h3><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h3>
+            <p class="article-content">
+              {{ post.content }}
+            </p>
+            <div class="text-right">
+              <small class="text-muted">
+                <a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.replies|length }} replies</a>
+              </small>
+            </div>
           </div>
-          <h3><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h3>
-          <p class="article-content">
-            {{ post.content }}
-          </p>
-          <div class="text-right">
-            <small class="text-muted">
-              <a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.replies|length }} replies</a>
-            </small>
-          </div>
-        </div>
-      </article>
-    {% endfor %}
+        </article>
+        {% else %}
+        <h5 class="article-title mt-4">No posts found</h5>
+      {% endfor %}
+    {% endif %}
     <div class="container">
       <div class="row justify-content-center">
       {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
