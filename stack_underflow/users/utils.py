@@ -8,6 +8,9 @@ from stack_underflow import mail
 
 
 def save_picture(form_picture):
+    """
+    Saves pictures from form to local, returning file name
+    """
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
@@ -22,6 +25,9 @@ def save_picture(form_picture):
 
 
 def send_reset_email(user):
+    """
+    Gets token and send password reset email
+    """
     token = user.get_reset_token()
     msg = Message('Password Reset Request',
                   sender='noreply@hello_world.com',

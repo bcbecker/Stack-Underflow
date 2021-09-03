@@ -15,6 +15,9 @@ mail = Mail()
 
 
 def create_app(config_class=Config):
+    """
+    Binds all necessary objects to app instance, configs with .env
+    """
     app = Flask(__name__)
     app.config.from_object(Config)
 

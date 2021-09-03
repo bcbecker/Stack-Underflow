@@ -9,6 +9,9 @@ main = Blueprint('main', __name__)
 @main.route("/", methods=['GET', 'POST'])
 @main.route("/home", methods=['GET', 'POST'])
 def home():
+    """
+    Fetches all posts(paginated), and top posts
+    """
     form = SearchForm()
     page = request.args.get('page', 1, type=int)
     top_posts = Post.get_top_posts()
@@ -17,6 +20,9 @@ def home():
 
 @main.route("/search", methods=['GET', 'POST'])
 def search():
+    """
+    Fetches searched-for posts (paginated), and top posts
+    """
     form = SearchForm()
     page = request.args.get('page', 1, type=int)
     top_posts = Post.get_top_posts()
@@ -31,4 +37,7 @@ def search():
 
 @main.route("/about")
 def about():
+    """
+    Renders the about page
+    """
     return render_template('about.html', title='About')

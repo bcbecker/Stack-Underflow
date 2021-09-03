@@ -4,5 +4,8 @@ from wtforms.validators import DataRequired
 
 
 class SearchForm(FlaskForm):
+    """
+    Collects keyword for searching by post title
+    """
     keyword = StringField('Search', validators=[DataRequired()])
     submit = SubmitField('Search')

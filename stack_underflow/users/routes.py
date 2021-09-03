@@ -11,6 +11,9 @@ users = Blueprint('users', __name__)
 
 @users.route("/register", methods=['GET', 'POST'])
 def register():
+    """
+    Uses form data to commit new user to db
+    """
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     form = RegistrationForm()
@@ -26,6 +29,9 @@ def register():
 
 @users.route("/login", methods=['GET', 'POST'])
 def login():
+    """
+    If form validates, logs in the user and redir to next page
+    """
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     form = LoginForm()
@@ -42,6 +48,9 @@ def login():
 
 @users.route("/logout")
 def logout():
+    """
+    Logs user out with flask-login
+    """
     logout_user()
     return redirect(url_for('main.home'))
 
@@ -49,6 +58,9 @@ def logout():
 @users.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
+    """
+    Loads user data, updates db if form validates
+    """
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
@@ -69,6 +81,9 @@ def account():
 
 @users.route("/user/<string:username>")
 def user_posts(username):
+    """
+    Fetches posts by the given user (paginated)
+    """
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(username=username).first_or_404()
     posts = Post.query.filter_by(author=user)\
@@ -79,6 +94,9 @@ def user_posts(username):
 
 @users.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():
+    """
+    If user is not auth and form validates, send password reset email
+    """
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     form = RequestResetForm()
@@ -92,6 +110,9 @@ def reset_request():
 
 @users.route("/reset_password/<token>", methods=['GET', 'POST'])
 def reset_token(token):
+    """
+    If user is not auth, token valid, and form validates, commit updated password to db
+    """
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     user = User.verify_reset_token(token)
