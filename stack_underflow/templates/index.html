@@ -23,18 +23,48 @@
         </div>
       </article>
     {% endfor %}
-    <!--Center this? Footer?-->
-    <footer class="justify-content-center">
-    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-      {% if page_num %}
-        {% if posts.page == page_num %}
-          <a class="btn btn-secondary mb-4 site-font" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+    <div class="container">
+      <div class="row justify-content-center">
+      {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+          {% if posts.page == page_num %}
+            <a class="btn btn-secondary mb-4 site-font" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+          {% else %}
+            <a class="btn btn-outline-secondary mb-4 site-font" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+          {% endif %}
         {% else %}
-          <a class="btn btn-outline-secondary mb-4 site-font" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+          ...
         {% endif %}
-      {% else %}
-        ...
-      {% endif %}
-    {% endfor %}
-    </footer>
+      {% endfor %}
+      </div>
+    </div>
 {% endblock content %}
+
+{% block footer %}
+<footer class="footer pl-3">
+  <div class="row">
+    <div class="content-section-dark">
+      <form class="form-inline" method="POST" action="{{ url_for('main.search') }}">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <div class="form-group">
+              {% if form.keyword.errors %}
+                  {{ form.keyword(class="form-control form-control-sm is-invalid") }}
+                  <div class="invalid-feedback">
+                      {% for error in form.keyword.errors %}
+                          <span>{{ error }}</span>
+                      {% endfor %}
+                  </div>
+              {% else %}
+                  {{ form.keyword(class="form-control form-control-sm", placeholder=" Search") }}
+              {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group pl-3">
+            {{ form.submit(class="btn btn-secondary") }}
+        </div>
+      </form>
+    </div>
+  </div>
+</footer>
+{% endblock footer%}
