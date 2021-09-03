@@ -44,6 +44,11 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     replies = db.relationship('Reply', backref='post_reply_to', lazy=True)
 
+    @staticmethod
+    def get_top_posts():
+        query = db.session.query(Post.id, Post.title, db.func.count(Reply.post_id)).join(Reply).group_by(Post.id).order_by(db.func.count(Reply.post_id).desc()).limit(3)
+        return db.session.execute(query).mappings()
+
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
 
