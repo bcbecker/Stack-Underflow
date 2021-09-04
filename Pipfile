@@ -24,6 +24,7 @@ MarkupSafe = "*"
 Pillow = "*"
 Werkzeug = "*"
 WTForms = "*"
+pytest = "*"
 
 [dev-packages]
 

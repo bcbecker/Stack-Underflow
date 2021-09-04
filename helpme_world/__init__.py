@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
-from stack_underflow.config import Config
+from helpme_world.config import Config
 
 
 db = SQLAlchemy()
@@ -26,10 +26,10 @@ def create_app(config_class=Config):
     login_manager.init_app(app)
     mail.init_app(app)
 
-    from stack_underflow.users.routes import users
-    from stack_underflow.posts.routes import posts
-    from stack_underflow.main.routes import main
-    from stack_underflow.errors.handlers import errors
+    from helpme_world.users.routes import users
+    from helpme_world.posts.routes import posts
+    from helpme_world.main.routes import main
+    from helpme_world.errors.handlers import errors
     app.register_blueprint(users)
     app.register_blueprint(posts)
     app.register_blueprint(main)

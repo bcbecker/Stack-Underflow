@@ -1,10 +1,10 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
-from stack_underflow import db, bcrypt
-from stack_underflow.models import User, Post
-from stack_underflow.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
+from helpme_world import db, bcrypt
+from helpme_world.models import User, Post
+from helpme_world.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm)
-from stack_underflow.users.utils import save_picture, send_reset_email
+from helpme_world.users.utils import save_picture, send_reset_email
 
 users = Blueprint('users', __name__)
 

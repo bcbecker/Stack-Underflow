@@ -1,9 +1,9 @@
 from flask import (render_template, url_for, flash,
                    redirect, request, abort, Blueprint)
 from flask_login import current_user, login_required
-from stack_underflow import db
-from stack_underflow.models import Post, Reply
-from stack_underflow.posts.forms import PostForm, ReplyForm
+from helpme_world import db
+from helpme_world.models import Post, Reply
+from helpme_world.posts.forms import PostForm, ReplyForm
 
 posts = Blueprint('posts', __name__)
 

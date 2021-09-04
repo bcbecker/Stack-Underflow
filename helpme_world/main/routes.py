@@ -1,7 +1,7 @@
 from flask import (render_template,url_for,
                    redirect, request, Blueprint)
-from stack_underflow.models import Post
-from stack_underflow.main.forms import SearchForm
+from helpme_world.models import Post
+from helpme_world.main.forms import SearchForm
 
 main = Blueprint('main', __name__)
 

@@ -1,12 +1,15 @@
 from datetime import datetime
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask import current_app
-from stack_underflow import db, login_manager
+from helpme_world import db, login_manager
 from flask_login import UserMixin
 
 
 @login_manager.user_loader
 def load_user(user_id):
+    """
+    User loader callback for session
+    """
     return User.query.get(int(user_id))
 
 
@@ -20,11 +23,17 @@ class User(db.Model, UserMixin):
     replies = db.relationship('Reply', backref='reply_author', lazy=True)
 
     def get_reset_token(self, expires_sec=600):
+        """
+        Serializes token, returns json
+        """
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
         return s.dumps({'user_id': self.id}).decode('utf-8')
 
     @staticmethod
     def verify_reset_token(token):
+        """
+        Confirms valid token for password reset
+        """
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
             user_id = s.loads(token)['user_id']
@@ -46,6 +55,9 @@ class Post(db.Model):
 
     @staticmethod
     def get_top_posts():
+        """
+        Returns mapping of posts with most replies, in descending order
+        """
         query = db.session.query(Post.id, Post.title, db.func.count(Reply.post_id)).join(Reply).group_by(Post.id).order_by(db.func.count(Reply.post_id).desc()).limit(3)
         return db.session.execute(query).mappings()
 

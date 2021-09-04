@@ -26,7 +26,7 @@
   
   {% for reply in post.replies %}
   <article class="media reply-section">
-    <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + post.author.image_file) }}">
+    <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + reply.reply_author.image_file) }}">
     <div class="media-body">
       <div class="article-metadata">
         <a class="mr-2 user-font user-font" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ reply.reply_author.username }}</a>
