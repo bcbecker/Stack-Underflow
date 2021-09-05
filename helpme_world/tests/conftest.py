@@ -1,7 +1,25 @@
 #unit test fixtures
 import pytest
 from helpme_world.models import User, Post, Reply
+from helpme_world import create_app
+from helpme_world.config import Config
 
+
+@pytest.fixture()
+def test_client():
+    """
+    Create test app with proper config
+    """
+    app = create_app()
+    app.config['TESTING'] = True
+    app.config['SECRET_KEY'] = Config.SECRET_KEY
+    app.config['SQLALCHEMY_DATABASE_URI'] = Config.SQLALCHEMY_DATABASE_URI
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = Config.SQLALCHEMY_TRACK_MODIFICATIONS
+    app.config['DEBUG'] = False
+
+    with app.test_client() as test_client:
+        with app.app_context():
+            yield test_client
 
 @pytest.fixture()
 def new_user():
