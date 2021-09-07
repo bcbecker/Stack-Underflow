@@ -20,7 +20,7 @@ def test_new_post(new_user, new_post):
     assert new_post.title == "This is a test post"
     assert new_post.content == "Super cool post things"
 
-def test_new_reply(new_user, new_post, new_reply):
+def test_new_reply(new_user, new_reply):
     """
     GIVEN a Reply model
     WHEN a new Reply is created by a user on a post
