@@ -1,4 +1,4 @@
-from flask import (render_template,url_for,
+from flask import (render_template, url_for,
                    redirect, request, Blueprint)
 from helpme_world.models import Post
 from helpme_world.main.forms import SearchForm
