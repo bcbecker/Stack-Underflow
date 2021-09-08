@@ -51,7 +51,7 @@ class Post(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    replies = db.relationship('Reply', backref='post_reply_to', lazy=True)
+    replies = db.relationship('Reply', backref='post_reply_to', lazy=True, cascade="all, delete")
 
     @staticmethod
     def get_top_posts():

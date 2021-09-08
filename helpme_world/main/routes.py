@@ -18,7 +18,7 @@ def home():
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
     return render_template('index.html', posts=posts, top_posts=top_posts, form=form, legend='Search Posts')
 
-@main.route("/search", methods=['GET', 'POST'])
+@main.route("/search", methods=['POST'])
 def search():
     """
     Fetches searched-for posts (paginated), and top posts

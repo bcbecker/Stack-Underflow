@@ -4,10 +4,12 @@ def test_new_post_route(test_client):
     """
     GIVEN a Flask application configured for testing
     WHEN the '/post/new' page is requested (POST)
-    THEN check that the response is redirect (302)
+    THEN check that the response is redirected
     """
     response = test_client.post('/post/new')
     assert response.status_code == 302
+    response = test_client.post('/post/new', follow_redirects=True)
+    assert response.status_code == 200
 
 def test_post_route(test_client):
     """
@@ -24,8 +26,10 @@ def test_reply_route(test_client):
     WHEN the '/post/<int:post_id>/reply' page is requested (POST)
     THEN check that the response is redirect (302)
     """
-    response = test_client.get('/post/1/reply')
+    response = test_client.post('/post/1/reply')
     assert response.status_code == 302
+    response = test_client.post('/post/1/reply', follow_redirects=True)
+    assert response.status_code == 200
 
 def test_post_update_route(test_client):
     """
@@ -35,6 +39,8 @@ def test_post_update_route(test_client):
     """
     response = test_client.post('/post/1/update')
     assert response.status_code == 302
+    response = test_client.post('/post/1/update', follow_redirects=True)
+    assert response.status_code == 200
     
 def test_post_delete_route(test_client):
     """
@@ -44,4 +50,6 @@ def test_post_delete_route(test_client):
     """
     response = test_client.post('/post/1/delete')
     assert response.status_code == 302
+    response = test_client.post('/post/1/delete', follow_redirects=True)
+    assert response.status_code == 200
     

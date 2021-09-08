@@ -25,7 +25,7 @@ def new_post():
                            form=form, legend='New Post')
 
 
-@posts.route("/post/<int:post_id>", methods=['GET', 'POST'])
+@posts.route("/post/<int:post_id>", methods=['GET'])
 def post(post_id):
     """
     Gets/renders post by id, or returns 404
