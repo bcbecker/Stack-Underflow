@@ -25,6 +25,8 @@ Pillow = "*"
 Werkzeug = "*"
 WTForms = "*"
 pytest = "*"
+gunicorn = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
