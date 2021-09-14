@@ -83,6 +83,7 @@ Site can be found here: http://127.0.0.1:5000/
 Improvements:
 - The front end is quite basic, and ideally I'd love to make a React front end
 - Upgrade the testing suite, maybe using Selenium for functional testing
+- Role guarding pages using @role_required, needs DB refactor
 
 To Do:
 - Elasticsearch for full-text searching
