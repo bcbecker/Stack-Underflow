@@ -47,13 +47,11 @@
     <div class="col-md-4">
       <div class="content-section-dark mt-3">
         <h3>Popular Posts</h3>
-        <p class='text-muted'>
           <ul class="list-group">
           {% for top_post in top_posts %}
-            <li class="list-group-item"><a class="nav-item article-title" href="{{ url_for('posts.post', post_id=top_post['id']) }}">{{ top_post['title'] }}</a></li>
+            <li class="list-group-item sm-content-section"><a class="nav-item article-title" href="{{ url_for('posts.post', post_id=top_post['id']) }}">{{ top_post['title'] }}</a></li>
           {% endfor %}
           </ul>
-        </p>
       </div>
       <footer class="footer pl-3">
         <div class="row">
