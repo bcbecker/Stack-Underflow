@@ -89,3 +89,6 @@ To Do:
 - Elasticsearch for full-text searching
 - Implement Redis for caching some slow queries ('LIKE', 'COUNT')
 - Collapsible navbar for future features
+
+Recently added:
+- Rate limiting using Flask-Limiter

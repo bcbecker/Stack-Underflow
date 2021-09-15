@@ -27,6 +27,7 @@ WTForms = "*"
 pytest = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
+flask-limiter = "*"
 
 [dev-packages]
 

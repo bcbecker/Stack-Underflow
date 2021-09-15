@@ -1,7 +1,7 @@
 from flask import (render_template, url_for, flash,
                    redirect, request, abort, Blueprint)
 from flask_login import current_user, login_required
-from helpme_world import db
+from helpme_world import db, limiter
 from helpme_world.models import Post, Reply
 from helpme_world.posts.forms import PostForm, ReplyForm
 
@@ -10,6 +10,7 @@ posts = Blueprint('posts', __name__)
 
 @posts.route("/post/new", methods=['GET', 'POST'])
 @login_required
+@limiter.limit("10/hour")
 def new_post():
     """
     If the form validates, commits new post data to db
@@ -26,6 +27,7 @@ def new_post():
 
 
 @posts.route("/post/<int:post_id>", methods=['GET'])
+@limiter.limit("1/second")
 def post(post_id):
     """
     Gets/renders post by id, or returns 404
@@ -37,6 +39,7 @@ def post(post_id):
 
 @posts.route("/post/<int:post_id>/reply", methods=['GET', 'POST'])
 @login_required
+@limiter.limit("50/hour")
 def new_reply(post_id):
     """
     If form validates, commits reply data to db
@@ -55,6 +58,7 @@ def new_reply(post_id):
 
 @posts.route("/post/<int:post_id>/update", methods=['GET', 'POST'])
 @login_required
+@limiter.limit("10/hour")
 def update_post(post_id):
     """
     Updates post data to db if post exists and author is current_user
@@ -78,6 +82,7 @@ def update_post(post_id):
 
 @posts.route("/post/<int:post_id>/delete", methods=['POST'])
 @login_required
+@limiter.limit("1/second", override_defaults=False)
 def delete_post(post_id):
     """
     Deletes post data from db if user is current_user

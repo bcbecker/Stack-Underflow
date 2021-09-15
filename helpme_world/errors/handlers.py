@@ -12,13 +12,18 @@ def error_404(error):
 
 
 @errors.app_errorhandler(403)
-
 def error_403(error):
     """
     Renders 403 template upon 403 error
     """
     return render_template('errors/403.html'), 403
 
+@errors.app_errorhandler(429)
+def error_429(error):
+    """
+    Renders 429 template upon 429 error
+    """
+    return render_template('errors/429.html'), 429
 
 @errors.app_errorhandler(500)
 def error_500(error):

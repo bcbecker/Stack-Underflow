@@ -1,5 +1,6 @@
 from flask import (render_template, url_for,
                    redirect, request, Blueprint)
+from helpme_world import limiter
 from helpme_world.models import Post
 from helpme_world.main.forms import SearchForm
 
@@ -8,6 +9,7 @@ main = Blueprint('main', __name__)
 
 @main.route("/", methods=['GET', 'POST'])
 @main.route("/home", methods=['GET', 'POST'])
+@limiter.limit("1/second", override_defaults=False)
 def home():
     """
     Fetches all posts(paginated), and top posts
@@ -19,6 +21,7 @@ def home():
     return render_template('index.html', posts=posts, top_posts=top_posts, form=form, legend='Search Posts')
 
 @main.route("/search", methods=['POST'])
+@limiter.limit("1/second", override_defaults=False)
 def search():
     """
     Fetches searched-for posts (paginated), and top posts
@@ -36,6 +39,7 @@ def search():
     return redirect(url_for('main.home', posts=posts, top_posts=top_posts, form=form, legend='Search Posts'))
 
 @main.route("/about")
+@limiter.limit("1/second", override_defaults=False)
 def about():
     """
     Renders the about page

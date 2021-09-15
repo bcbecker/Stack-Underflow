@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
-from helpme_world import db, bcrypt
+from helpme_world import db, bcrypt, limiter
 from helpme_world.models import User, Post
 from helpme_world.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm)
@@ -10,6 +10,7 @@ users = Blueprint('users', __name__)
 
 
 @users.route("/register", methods=['GET', 'POST'])
+@limiter.limit("2/day")
 def register():
     """
     Uses form data to commit new user to db
@@ -28,6 +29,7 @@ def register():
 
 
 @users.route("/login", methods=['GET', 'POST'])
+@limiter.limit("1/second", override_defaults=False)
 def login():
     """
     If form validates, logs in the user and redir to next page
@@ -47,6 +49,7 @@ def login():
 
 
 @users.route("/logout")
+@limiter.limit("1/second")
 def logout():
     """
     Logs user out with flask-login
@@ -57,6 +60,7 @@ def logout():
 
 @users.route("/account", methods=['GET', 'POST'])
 @login_required
+@limiter.limit("1/second", override_defaults=False)
 def account():
     """
     Loads user data, updates db if form validates
@@ -80,6 +84,7 @@ def account():
 
 
 @users.route("/user/<string:username>")
+@limiter.limit("1/second", override_defaults=False)
 def user_posts(username):
     """
     Fetches posts by the given user (paginated)
@@ -93,6 +98,7 @@ def user_posts(username):
 
 
 @users.route("/reset_password", methods=['GET', 'POST'])
+@limiter.limit("2/day")
 def reset_request():
     """
     If user is not auth and form validates, send password reset email
@@ -109,6 +115,7 @@ def reset_request():
 
 
 @users.route("/reset_password/<token>", methods=['GET', 'POST'])
+@limiter.limit("2/day")
 def reset_token(token):
     """
     If user is not auth, token valid, and form validates, commit updated password to db
