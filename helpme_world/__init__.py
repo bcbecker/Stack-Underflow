@@ -5,7 +5,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-from helpme_world.config import Config
+from helpme_world.config import ProductionConfig
 
 
 db = SQLAlchemy()
@@ -17,12 +17,12 @@ mail = Mail()
 limiter = Limiter(key_func=get_remote_address)
 
 
-def create_app(config_class=Config):
+def create_app(config_class=ProductionConfig):
     """
     Binds all necessary objects to app instance, configs with .env
     """
     app = Flask(__name__)
-    app.config.from_object(Config)
+    app.config.from_object(ProductionConfig)
 
     db.init_app(app)
     bcrypt.init_app(app)
