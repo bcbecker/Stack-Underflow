@@ -6,6 +6,8 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from redis import Redis
+import rq
 from helpme_world.config import Config
 
 
@@ -26,6 +28,9 @@ def create_app(config_class=Config):
     """
     app = Flask(__name__)
     app.config.from_object(Config)
+
+    app.redis = Redis.from_url(Config.REDIS_URL)
+    app.task_queue = rq.Queue('util-tasks', connection=app.redis)
 
     db.init_app(app)
     migrate.init_app(app, db)

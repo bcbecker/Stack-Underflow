@@ -6,6 +6,7 @@ class Config:
     FLASK_APP = os.environ.get('FLASK_APP')
     SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    REDIS_URL = os.environ.get('REDIS_URL') or 'redis://'
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True

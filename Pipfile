@@ -29,6 +29,8 @@ gunicorn = "*"
 psycopg2-binary = "*"
 flask-limiter = "*"
 flask-migrate = "*"
+redis = "*"
+rq = "*"
 
 [dev-packages]
 
