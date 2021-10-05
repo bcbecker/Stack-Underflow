@@ -28,6 +28,7 @@ pytest = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
 flask-limiter = "*"
+flask-migrate = "*"
 
 [dev-packages]
 

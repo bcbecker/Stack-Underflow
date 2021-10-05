@@ -1,14 +1,16 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-from helpme_world.config import ProductionConfig
+from helpme_world.config import Config
 
 
 db = SQLAlchemy()
+migrate = Migrate()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 login_manager.login_view = 'users.login'
@@ -18,14 +20,15 @@ limiter = Limiter(key_func=get_remote_address,
   default_limits=["200/day", "50/hour"])
 
 
-def create_app(config_class=ProductionConfig):
+def create_app(config_class=Config):
     """
     Binds all necessary objects to app instance, configs with .env
     """
     app = Flask(__name__)
-    app.config.from_object(ProductionConfig)
+    app.config.from_object(Config)
 
     db.init_app(app)
+    migrate.init_app(app, db)
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
