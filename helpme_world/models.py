@@ -25,6 +25,9 @@ class User(db.Model, UserMixin):
     replies = db.relationship('Reply', backref='reply_author', lazy=True)
     tasks = db.relationship('Task', backref='user', lazy='dynamic')
 
+    def __repr__(self):
+        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
+
     def get_reset_token(self, expires_sec=600):
         """
         Serializes token, returns json
@@ -44,8 +47,29 @@ class User(db.Model, UserMixin):
             return None
         return User.query.get(user_id)
 
-    def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
+    def launch_task(self, name, description, *args, **kwargs):
+        """
+        Enqueues a new task to the queue, and adds the task to the db
+        """
+        rq_job = current_app.task_queue.enqueue('helpme_world.tasks.' + name, self.id,
+                                                *args, **kwargs)
+        task = Task(id=rq_job.get_id(), name=name, description=description,
+                    user=self)
+        db.session.add(task)
+        return task
+
+    def get_tasks_in_progress(self):
+        """
+        Queries db to find all the active tasks in the queue
+        """
+        return Task.query.filter_by(user=self, complete=False).all()
+
+    def get_task_in_progress(self, name):
+        """
+        Queries db to find just the first active task in the queue
+        """
+        return Task.query.filter_by(name=name, user=self,
+                                    complete=False).first()
 
 
 class Post(db.Model):
