@@ -35,5 +35,7 @@ def send_reset_email(user):
 {url_for('users.reset_token', token=token, _external=True)}
 
 If you did not make this request then simply ignore this email and no changes will be made.
+
+Email sent by the helpme_world team.
 '''
     mail.send(msg)
