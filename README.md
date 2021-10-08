@@ -88,8 +88,7 @@ Improvements:
 To Do:
 - Elasticsearch for full-text searching
 - Implement Redis for caching some slow queries ('LIKE', 'COUNT')
-- Collapsible sidebar for future features
-- Implement custom input saniziation for 
+- Implement custom input saniziation for forms
 
 Recently added:
 - Rate limiting using Flask-Limiter
