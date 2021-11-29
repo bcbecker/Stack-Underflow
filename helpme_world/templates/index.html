@@ -45,6 +45,7 @@
 {% endblock content %}
 {% block popular_search %}
     <div class="col-md-4">
+      {% if top_posts %}
       <div class="content-section-dark mt-3">
         <h3>Popular Posts</h3>
           {% for top_post in top_posts %}
@@ -64,6 +65,7 @@
           </article>
           {% endfor %}
       </div>
+      {% endif %}
       <footer class="footer pl-3">
         <div class="row">
           <div class="content-section-dark">
