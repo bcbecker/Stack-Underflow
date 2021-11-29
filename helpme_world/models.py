@@ -58,10 +58,14 @@ class Post(db.Model):
         """
         Returns mapping of posts with most replies, in descending order
         """
-        query = db.session.query(Post.id, Post.title, db.func.count(Reply.post_id))\
-            .join(Reply).group_by(Post.id)\
-                .order_by(db.func.count(Reply.post_id)\
-                    .desc()).limit(3)
+        query = db.session.query(
+            Post.id, Post.title, User.username, User.image_file,
+            db.func.count(Reply.post_id).label("reply_count"))\
+                .join(Reply, Reply.post_id == Post.id)\
+                    .group_by(Post.id, User.username, User.image_file, Reply.post_id)\
+                .join(User, User.id == Post.user_id)\
+                    .order_by(db.func.count(Reply.post_id)\
+                        .desc()).limit(3)
         return db.session.execute(query).mappings()
 
     def __repr__(self):

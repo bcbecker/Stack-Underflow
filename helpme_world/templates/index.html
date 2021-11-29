@@ -18,7 +18,7 @@
             </p>
             <div class="text-right">
               <small class="text-muted">
-                <a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.replies|length }} replies</a>
+                <a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.replies | length }} replies</a>
               </small>
             </div>
           </div>
@@ -47,11 +47,22 @@
     <div class="col-md-4">
       <div class="content-section-dark mt-3">
         <h3>Popular Posts</h3>
-          <ul class="list-group">
           {% for top_post in top_posts %}
-            <li class="list-group-item sm-content-section"><a class="nav-item article-title" href="{{ url_for('posts.post', post_id=top_post['id']) }}">{{ top_post['title'] }}</a></li>
+          <article class="media md-content-section">
+            <img class="rounded-circle article-img-small" src="{{ url_for('static', filename='images/' + top_post['image_file']) }}">
+            <div class="media-body">
+              <div class="article-metadata">
+                <a href="{{ url_for('users.user_posts', username=top_post['username']) }}"><small class="mr-2 user-font">{{ top_post['username'] }}</small></a>
+              </div>
+              <h5><a class="article-title" href="{{ url_for('posts.post', post_id=top_post['id']) }}">{{ top_post['title'] }}</a></h5>
+              <div class="text-right">
+                <small class="text-muted">
+                  <p class="article-title">{{ top_post['reply_count'] }} replies</p>
+                </small>
+              </div>
+            </div>
+          </article>
           {% endfor %}
-          </ul>
       </div>
       <footer class="footer pl-3">
         <div class="row">
