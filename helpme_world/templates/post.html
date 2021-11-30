@@ -22,8 +22,6 @@
       {% endif %}
     </div>
   </article>
-
-  
   {% for reply in post.replies %}
   <article class="media reply-section">
     <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + reply.reply_author.image_file) }}">
