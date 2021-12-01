@@ -6,11 +6,21 @@
         <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + post.author.image_file) }}">
         <div class="media-body">
           <div class="article-metadata">
-            <a class="mr-2 user-font" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
-            <small class="text-muted">{{ post.date_posted.strftime('%m-%d-%Y') }}</small>
+            <a class="mr-2 user-font" href="{{ url_for('users.user_posts', username=post.author.username) }}">
+              {{ post.author.username }}
+            </a>
+            <small class="text-muted">
+              {{ post.date_posted.strftime('%m-%d-%Y') }}
+            </small>
           </div>
-          <h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
-          <p class="article-content">{{ post.content }}</p>
+          <h2>
+            <a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">
+              {{ post.title }}
+            </a>
+          </h2>
+          <md-block class="article-content">
+            {{ post.content }}
+          </md-block>
         </div>
       </article>
       <div class="container">
@@ -19,9 +29,13 @@
         {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
           {% if page_num %}
             {% if posts.page == page_num %}
-              <a class="btn btn-secondary mb-4" href="{{ url_for('users.user_posts', username=user.username, page=page_num) }}">{{ page_num }}</a>
+              <a class="btn btn-secondary mb-4" href="{{ url_for('users.user_posts', username=user.username, page=page_num) }}">
+                {{ page_num }}
+              </a>
             {% else %}
-              <a class="btn btn-outline-secondary mb-4" href="{{ url_for('users.user_posts', username=user.username, page=page_num) }}">{{ page_num }}</a>
+              <a class="btn btn-outline-secondary mb-4" href="{{ url_for('users.user_posts', username=user.username, page=page_num) }}">
+                {{ page_num }}
+              </a>
             {% endif %}
           {% else %}
             ...

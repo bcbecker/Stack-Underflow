@@ -4,8 +4,12 @@
     <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + post.author.image_file) }}">
     <div class="media-body">
       <div class="article-metadata">
-        <a class="mr-2 user-font" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
-        <small class="text-muted">{{ post.date_posted.strftime('%m-%d-%Y') }}</small>
+        <a class="mr-2 user-font" href="{{ url_for('users.user_posts', username=post.author.username) }}">
+          {{ post.author.username }}
+        </a>
+        <small class="text-muted">
+          {{ post.date_posted.strftime('%m-%d-%Y') }}
+        </small>
         {% if post.author == current_user %}
           <div>
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
@@ -13,8 +17,12 @@
           </div>
         {% endif %}
       </div>
-      <h2 class="article-title">{{ post.title }}</h2>
-      <p class="article-content">{{ post.content }}</p>
+      <h2 class="article-title">
+        {{ post.title }}
+      </h2>
+      <md-block class="article-content">
+        {{ post.content }}
+      </md-block>
       {% if current_user.is_authenticated %}
       <div class="text-right">
         <button type="button" class="btn btn-secondary btn-sm m-1" data-toggle="modal" data-target="#replyModal">Reply</button>
@@ -27,12 +35,16 @@
     <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + reply.reply_author.image_file) }}">
     <div class="media-body">
       <div class="article-metadata">
-        <a class="mr-2 user-font user-font" href="{{ url_for('users.user_posts', username=reply.reply_author.username) }}">{{ reply.reply_author.username }}</a>
-        <small class="text-muted">{{ reply.date_posted.strftime('%m-%d-%Y') }}</small>
+        <a class="mr-2 user-font user-font" href="{{ url_for('users.user_posts', username=reply.reply_author.username) }}">
+          {{ reply.reply_author.username }}
+        </a>
+        <small class="text-muted">
+          {{ reply.date_posted.strftime('%m-%d-%Y') }}
+        </small>
       </div>
-      <p class="article-content">
+      <md-block class="article-content">
         {{ reply.content }}
-      </p>
+      </md-block>
     </div>
   </article>
   {% endfor %}
