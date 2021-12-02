@@ -15,6 +15,7 @@ def new_post():
     If the form validates, commits new post data to db
     """
     form = PostForm()
+    flash('You can now use markdown to format code snippets! Give it a try with ```your code here```', 'info')
     if form.validate_on_submit():
         post = Post(title=form.title.data, content=form.content.data, author=current_user)
         db.session.add(post)
