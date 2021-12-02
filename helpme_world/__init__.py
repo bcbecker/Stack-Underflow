@@ -13,9 +13,10 @@ bcrypt = Bcrypt()
 login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
+login_manager.session_protection = 'strong'
 mail = Mail()
-limiter = Limiter(key_func=get_remote_address,
-  default_limits=["200/day", "50/hour"])
+limiter = Limiter(key_func=get_remote_address, default_limits=["500/hour"])
+
 
 
 def create_app(config_class=ProductionConfig):
@@ -23,7 +24,7 @@ def create_app(config_class=ProductionConfig):
     Binds all necessary objects to app instance, configs with .env
     """
     app = Flask(__name__)
-    app.config.from_object(ProductionConfig)
+    app.config.from_object(config_class)
 
     db.init_app(app)
     bcrypt.init_app(app)
@@ -35,6 +36,7 @@ def create_app(config_class=ProductionConfig):
     from helpme_world.posts.routes import posts
     from helpme_world.main.routes import main
     from helpme_world.errors.handlers import errors
+
     app.register_blueprint(users)
     app.register_blueprint(posts)
     app.register_blueprint(main)
