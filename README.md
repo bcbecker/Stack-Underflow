@@ -13,7 +13,7 @@ To view the live deployment: https://helpme-world.herokuapp.com/home
 
 
 ## General Information
-helpme_world is a site meant to serve as a platform for developers and hobbyist programmers to get together to ask questions, communicate ideas, and just enjoy the world of coding. They can make an account, which includes a username, email, and profile picture. Once registered, the user can make posts, reply to other posts, and edit or delete their own posts. The user can also search for posts, or see posts by a specific user.
+helpme_world is a site meant to serve as a platform for developers and hobbyist programmers to get together to ask questions, communicate ideas, and just enjoy the world of coding. They can make an account, which includes a username, email, and profile picture. Once registered, the user can make posts, reply to other posts, and edit or delete their own posts. Posts and replies have the ability to use markdown within them, making code snippets more easily readable. The user can also search for posts, or see posts by a specific user.
 
 My purpose for committing to this project is to show a growth mindset. As the project grows, it showcases the growth of my abilities as a back end developer, allowing me to build upon the foundation I've set before myself. The database design, endpoint routing, proper form handling, and error handling are all skills that I've been working to perfect. I felt the Flask framework was an excellent choice for that, because it requires base knowledge of system design to use. Unlike Django, Flask is of the "explicit over implicit" mentality, meaning if there is a feature or structure the developer wishes to add/follow, they are in charge of configuring it. Django is much more "batteries included," thus I felt Flask would be a better learning experience.
 
@@ -37,7 +37,7 @@ My purpose for committing to this project is to show a growth mindset. As the pr
 - User creation with sha256 password hashing
 - User profile picture customization
 - Mail server can send password reset email with expiring token
-- Users can create update or delete their own posts
+- Users can create update or delete their own posts, using markdown to format code
 - Search by post, view posts by user
 - Reply to posts
 
@@ -81,7 +81,7 @@ Site can be found here: http://127.0.0.1:5000/
 ## Improvements
 
 Improvements:
-- The front end is quite basic, and ideally I'd love to make a React front end
+- The front end is quite basic
 - Upgrade the testing suite, maybe using Selenium for functional testing
 - Role guarding pages using @role_required, needs DB refactor
 
@@ -89,6 +89,3 @@ To Do:
 - Elasticsearch for full-text searching
 - Implement Redis for caching some slow queries ('LIKE', 'COUNT')
 - Implement custom input saniziation for forms
-
-Recently added:
-- Rate limiting using Flask-Limiter
